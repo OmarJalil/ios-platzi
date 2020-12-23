@@ -15,11 +15,12 @@ class MoviesViewController: UIViewController {
     private let viewModel = MoviesViewModel()
     private let margin: CGFloat = 10
     
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-        layout.itemSize = CGSize(width: 180, height: view.frame.height / 3)
+        layout.itemSize = CGSize(width: (view.frame.width / 2) - 16, height: view.frame.height / 3)
         
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         collectionView?.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: "MovieCollectionViewCell")
@@ -89,7 +90,7 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // 2 rows collectionview
+        // forces 2 rows in collectionview
         let noOfCellsInRow = 2
         let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
         
@@ -102,9 +103,11 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
         return CGSize(width: size, height: Int(view.frame.height) / 3)
     }
     
+    // Infinite scroll
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         if viewModel.movies.isEmpty { return }
+        
         if collectionView.isLast(for: indexPath) {
             if viewModel.page < viewModel.totalPages {
                 if viewModel.isFetchingResults {
@@ -115,7 +118,5 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
                 getMovies()
             }
         }
-        
     }
-    
 }

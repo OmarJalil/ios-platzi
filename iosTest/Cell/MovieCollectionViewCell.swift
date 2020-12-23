@@ -10,6 +10,19 @@ import Kingfisher
 
 class MovieCollectionViewCell: UICollectionViewCell {
     
+    public var movie: Movie? {
+        didSet {
+            if let url = URL(string: "https://image.tmdb.org/t/p/original\(movie?.posterPath ?? "")") {
+                posterImageView.kf.setImage(with: url)
+                grayView.layer.cornerRadius = 9
+                grayView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+            }
+            titleLabel.text  = movie?.originalTitle
+            dateLabel.text   = movie?.releaseDate
+            ratingLabel.text = movie?.voteAverage.description
+        }
+    }
+    
     let posterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
@@ -64,6 +77,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Constraints
     public func addViews() {
         addSubview(posterImageView)
         addSubview(grayView)
@@ -104,18 +118,5 @@ class MovieCollectionViewCell: UICollectionViewCell {
         starImageView.centerYAnchor.constraint(equalTo: ratingLabel.centerYAnchor).isActive = true
         starImageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
         starImageView.widthAnchor.constraint(equalToConstant: 20).isActive = true
-    }
-    
-    public var movie: Movie? {
-        didSet {
-            if let url = URL(string: "https://image.tmdb.org/t/p/original\(movie?.posterPath ?? "")") {
-                posterImageView.kf.setImage(with: url)
-                grayView.layer.cornerRadius = 9
-                grayView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-            }
-            titleLabel.text  = movie?.originalTitle
-            dateLabel.text   = movie?.releaseDate
-            ratingLabel.text = movie?.voteAverage.description
-        }
     }
 }
