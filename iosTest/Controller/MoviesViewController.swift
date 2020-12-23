@@ -48,7 +48,7 @@ class MoviesViewController: UIViewController {
     // MARK: Refresh control
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .black
+        refreshControl.tintColor = .white
         refreshControl.addTarget(self, action:
                                     #selector(self.handleRefresh(_:)),
                                  for: UIControl.Event.valueChanged)

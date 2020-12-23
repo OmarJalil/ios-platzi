@@ -6,5 +6,7 @@
 * Image Lazy Loading
 * UIKit (programatically)
 * Public API 
+* Pull to refresh
+* Dark and Light theme (system based)
 
 ![](app.gif)

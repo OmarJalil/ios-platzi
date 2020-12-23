@@ -15,6 +15,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
             if let url = URL(string: "https://image.tmdb.org/t/p/original\(movie?.posterPath ?? "")") {
                 posterImageView.kf.setImage(with: url)
                 grayView.layer.cornerRadius = 9
+                // bottom corners 
                 grayView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
             }
             titleLabel.text  = movie?.originalTitle
