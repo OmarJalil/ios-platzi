@@ -28,6 +28,7 @@ class MoviesViewController: UIViewController {
         collectionView?.delegate = self
         collectionView?.dataSource = self
         collectionView?.refreshControl = refreshControl
+        collectionView?.showsVerticalScrollIndicator = false
         
         getMovies()
     }
